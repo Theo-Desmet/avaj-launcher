@@ -34,10 +34,9 @@ public class ParseFile {
 		return null;
 	}
 
-	public String[] parseLine(String line){
-		String[] parsed = {"","","",""};
+	public static String[] parseLine(String line){
+		String[] parsedLine = line.split(" ");
 
-
-		return null;
+		return parsedLine;
 	}
 }
