@@ -6,16 +6,19 @@ public class Tower {
 
 	public void register(Flyable p_flyable) {
 		observers.add(p_flyable);
-		System.out.println(p_flyable.getId() + p_flyable.getName() + p_flyable.getType());
-		
+		Log.writeLine("Tower say: " + p_flyable.getType() + " #" + p_flyable.getName() + " (" + p_flyable.getId() + ") registered to weather tower");
 	}
 
 	public void unregister(Flyable p_flyable) {
 		observers.remove(p_flyable);
+		Log.writeLine("Tower say: " + p_flyable.getType() + " #" + p_flyable.getName() + " (" + p_flyable.getId() + ") unregistered to weather tower");
 	}
 
 	protected void conditionChanged() {
-		//implement call for change aircraft condition
+		Log.writeLine("");
+		Log.writeLine("******************** NEW WEATHER ********************");
+		Log.writeLine("");
+
 		for (int i = 0; i < observers.size(); i++) {
 			observers.get(i).updateCondition();
 		}

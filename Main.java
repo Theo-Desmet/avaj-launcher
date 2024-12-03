@@ -1,4 +1,7 @@
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import parsing.ParseFile;
 
 class Main {
@@ -8,19 +11,24 @@ class Main {
 			System.err.println("too many args");
 			return;
 		}
-		
-		ParseFile file = new ParseFile(args[0]);
+	
+		ParseFile inFile = new ParseFile(args[0]);
 		WeatherTower weatherTower = new WeatherTower();
 		
 		// gerer mieux
-		String firstline = file.readLine();
-		System.out.println(firstline);
-
+		String firstline = inFile.readLine();
+		long nbIter = 0;
+		try {
+			nbIter = Integer.parseInt(firstline);			
+		} catch (NumberFormatException e) {
+			e.getStackTrace();
+		}
 
 		AircraftFactory factory = AircraftFactory.geAircraftFactory();
+		long idCounter = 0;
 		String line;
 		while (true) {
-			line = file.readLine();
+			line = inFile.readLine();
 			if (line == "")
 				break;
 			String[] parsed = ParseFile.parseLine(line);
@@ -29,18 +37,14 @@ class Main {
 				System.err.println("invalide line in parsing");
 			}
 			
-			Flyable flyable = factory.newAirCraft(parsed[0], parsed[1], Integer.parseInt(parsed[2]),Integer.parseInt(parsed[3]), Integer.parseInt(parsed[4]));
+			Flyable flyable = factory.newAirCraft(parsed[0], parsed[1], idCounter, Integer.parseInt(parsed[2]),Integer.parseInt(parsed[3]), Integer.parseInt(parsed[4]));
 			flyable.registerTower(weatherTower);
+			idCounter++;
 		}
-		// ParseFile file = new ParseFile(args[0]);
-		// String line;
-		// while (true) {
-		// 	line = file.readLine();
-		// 	if (line == "") break;
-		// 	String[] parsed = ParseFile.parseLine(line);
-		// 	for (String string : parsed) {
-		// 		System.out.println(string);
-		// 	}
-		// }
+
+		for (int i = 0; i < nbIter; i++) {
+			weatherTower.changeWeather();
+		}
+
 	}
 }

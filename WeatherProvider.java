@@ -19,7 +19,6 @@ public class WeatherProvider {
 	}
 
 	public String getCurrentWeather(Coordinates p_Coordinates) {
-		//create algo with coordinate
-		return weather[0];
+		return weather[Math.abs((p_Coordinates.getLongitude() + p_Coordinates.getLatitude() + p_Coordinates.getHeight())) % 4];
 	}
 }
