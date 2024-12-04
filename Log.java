@@ -21,4 +21,12 @@ public class Log {
 			e.printStackTrace();;
 		}
 	}
+
+	public static void close() {
+		try {
+			writer.close();
+		} catch(IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }

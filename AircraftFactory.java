@@ -15,46 +15,53 @@ public class AircraftFactory {
 	}
 
 	public Flyable newAirCraft(String p_type, String p_name, Coordinates p_Coordinates) {
-		if (p_type.equals("baloon")) {
-			// System.out.println("baloon create");
-			Flyable baloon = new Baloon(0, p_name, p_Coordinates);
-			return baloon;
+		Flyable newFlyable = null;
+		try {
+			switch (p_type) {
+				case "Baloon":
+					newFlyable = new Baloon(0, p_name, p_Coordinates);
+					break;
+				case "Helicopter":
+					newFlyable = new Helicopter(0, p_name, p_Coordinates);
+					break;
+				case "JetPlane":
+					newFlyable = new JetPlane(0, p_name, p_Coordinates);
+					break;
+				default:
+					throw new Exception("Invalide type");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			Log.close();
 		}
-		if (p_type.equals("helicopter")) {
-			// System.out.println("helicopter create");
-			Flyable helicopter = new Helicopter(0, p_name, p_Coordinates);
-			return helicopter;
-		}
-		if (p_type.equals("jetplane")) {
-			// System.out.println("jetplane create");
-			Flyable jetplane = new JetPlane(0, p_name, p_Coordinates);
-			return jetplane;
-		}
-		//add exception
-		return null;
+
+		return newFlyable;
 	}
 
 	public Flyable newAirCraft(String p_type, String p_name, long id, int longitude, int latidute, int height) {
 		Coordinates coordinates = new Coordinates(longitude, longitude, height);
-		// System.err.println("p_type:" + p_type + " p_name:" + p_name + " coordinate:" + coordinates.getLongitude() + " " + coordinates.getLatitude() + " " + coordinates.getHeight());
-
-		if (p_type.equals("Baloon")) {
-			// System.out.println("baloon create");
-			Flyable baloon = new Baloon(id, p_name, coordinates);
-			return baloon;
+		Flyable newFlyable = null;
+		try {
+			switch (p_type) {
+				case "Baloon":
+					newFlyable = new Baloon(id, p_name, coordinates);
+					break;
+				case "Helicopter":
+					newFlyable = new Helicopter(id, p_name, coordinates);
+					break;
+				case "JetPlane":
+					newFlyable = new JetPlane(id, p_name, coordinates);
+					break;
+				default:
+					throw new Exception("Invalide type: " + p_type);
+			}
+		} catch (Exception e) {
+			System.err.println("at line: " + (id + 1));
+			e.printStackTrace();
+			System.exit(1);
 		}
-		if (p_type.equals("Helicopter")) {
-			// System.out.println("helicopter create");
-			Flyable helicopter = new Helicopter(id, p_name, coordinates);
-			return helicopter;
-		}
-		if (p_type.equals("JetPlane")) {
-			// System.out.println("jetplane create");
-			Flyable jetplane = new JetPlane(id, p_name, coordinates);
-			return jetplane;
-		}
-
-		//add exception
-		return null;
+		return newFlyable;
 	}
 }
