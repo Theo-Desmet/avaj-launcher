@@ -1,9 +1,14 @@
+import java.io.File;
+
+import log.Log;
 import parsing.ParseFile;
+import simulation.AircraftFactory;
+import simulation.Flyable;
+import simulation.WeatherTower;
 
 class Main {
 	public static void main(String[] args) {
 		if (args.length != 1) {
-			//handle
 			System.err.println("too many args");
 			System.exit(1);
 		}
@@ -13,6 +18,11 @@ class Main {
 		long idCounter = 0;
 
 		try {
+			// File inFile = new File(args[0]);
+			// if (!infile.exists()) {
+			// 	System.out.println("Scenario file not found: " + args[0]);
+			// 	System.exit(1);
+			// }
 			ParseFile inFile = new ParseFile(args[0]);
 			long nbIter = Integer.parseInt(inFile.readLine().trim());
 			String line;

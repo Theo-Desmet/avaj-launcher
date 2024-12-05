@@ -1,5 +1,6 @@
 package parsing;
 
+
 import java.io.*;
 
 public class ParseFile {
@@ -10,8 +11,10 @@ public class ParseFile {
 	public ParseFile(String args) {
 		try {
 			file = new FileInputStream(args);
-		} catch(Exception e) {
-			e.getStackTrace();
+		} catch(FileNotFoundException e) {
+			System.err.println("Invalid access to " + args);
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
